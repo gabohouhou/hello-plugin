@@ -1,7 +1,7 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.github.gabohouhou.helloplugin</id>
-    <name>hello-plugin Template</name>
+    <name>PluginDemo</name>
     <vendor>gabohouhou</vendor>
 
     <depends>com.intellij.modules.platform</depends>
@@ -10,7 +10,62 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow factoryClass="com.github.gabohouhou.helloplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <applicationInitializedListener implementation=""></applicationInitializedListener>
     </extensions>
+
+    <actions>
+
+            <!--            id 全局唯一-->
+            <!-- popup属性：决定该Group是否允许子菜单     -->
+            <!-- icon：图标，需要配置为全限定命名    -->
+            <!-- 不配置compact属性，表示该Group需要支持子菜单    -->
+            <group
+                    id="org.intellij.sdk.action.GroupedActions"
+                    text="LightCode1"
+                    popup="true">
+                <!--EditorPopupMenu 编辑器的右键弹出菜单-->
+                <add-to-group group-id="EditorPopupMenu" anchor="first"
+                        relative-to-action="org.intellij.sdk.action.PopupDialogAction"></add-to-group>
+                <action class="com.github.gaboness.actions.RegAction" id="com.github.gaboness.actions.RegAction" text="regActionText"
+                        description="this is RegAction desc"/>
+                <action class="com.github.gaboness.actions.LoginAction" id="com.github.gaboness.actions.LoginAction" text="loginActionText"
+                        description="this is LoginAction desc"/>
+                <separator/>
+                <group id="group2" text="submenu" popup="true">
+                    <action id="com.github.gaboness.actions.OneAction" class="com.github.gaboness.actions.OneAction" text="show action1"></action>
+                    <action id="com.github.gaboness.actions.TwoAction" class="com.github.gaboness.actions.TwoAction" text="show c"></action>
+                </group>
+            </group>
+
+        <group
+                id="org.intellij.sdk.action.GroupedActions2"
+                text="LightCode2"
+                popup="true">
+            <!--EditorPopupMenu 鼠标右键弹出框-->
+            <add-to-group group-id="EditorPopupMenu" anchor="first"
+                          relative-to-action="org.intellij.sdk.action.PopupDialogAction"></add-to-group>
+            <action class="com.github.gaboness.actions.RegAction" id="com.github.gaboness.actions.RegAction" text="regActionText"
+                    description="this is RegAction desc"/>
+            <action class="com.github.gaboness.actions.LoginAction" id="com.github.gaboness.actions.LoginAction" text="loginActionText"
+                    description="this is LoginAction desc"/>
+            <action class="com.github.gaboness.actions.LogOutAction" id="com.github.gaboness.actions.LogOutAction" text="logOutActionText"
+                    description="this is LogOutAction desc"/>
+        </group>
+
+
+        <action class="com.github.gaboness.actions.HelloAction" id="com.github.gaboness.actions.HelloAction" text="HelloActionText"
+                description="this is HelloAction desc">
+            <add-to-group group-id="ToolsMenu" anchor="first"></add-to-group>
+                <keyboard-shortcut first-keystroke="TAB" keymap="$default"></keyboard-shortcut>
+        </action>
+
+        <action class="com.github.gaboness.actions.HelloAction" id="com.github.gaboness.actions.HelloAction2" text="HelloActionText2"
+                description="this is HelloAction desc">
+            <add-to-group group-id="HelpMenu" anchor="first"></add-to-group>
+            <keyboard-shortcut first-keystroke="TAB" keymap="$default"></keyboard-shortcut>
+        </action>
+
+    </actions>
 
     <applicationListeners>
         <listener class="com.github.gabohouhou.helloplugin.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
