@@ -5,69 +5,110 @@
     <vendor>gabohouhou</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <change-notes>[!<![CDATA[
+        <p>first change notes</p>
+        <p>two change notes</p>
+    ]]>]</change-notes>
+
+    <version>0.0.1</version>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
 
+    <!--extensions表示 当前插件需要扩展的功能，包括需要扩展intellij Platfrom人平台的功能等-->
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.gabohouhou.helloplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
-        <applicationInitializedListener implementation=""></applicationInitializedListener>
+<!--        secondary 是否次要：secondary="true"表示次要，不配置 默认主要-->
+
     </extensions>
 
+    <!--扩展点  提供给其他插件，用来扩展本插件的功能-->
+    <extensionPoints></extensionPoints>
+
     <actions>
-
-            <!--            id 全局唯一-->
-            <!-- popup属性：决定该Group是否允许子菜单     -->
-            <!-- icon：图标，需要配置为全限定命名    -->
-            <!-- 不配置compact属性，表示该Group需要支持子菜单    -->
-            <group
-                    id="org.intellij.sdk.action.GroupedActions"
-                    text="LightCode1"
-                    popup="true">
-                <!--EditorPopupMenu 编辑器的右键弹出菜单-->
-                <add-to-group group-id="EditorPopupMenu" anchor="first"
-                        relative-to-action="org.intellij.sdk.action.PopupDialogAction"></add-to-group>
-                <action class="com.github.gaboness.actions.RegAction" id="com.github.gaboness.actions.RegAction" text="regActionText"
-                        description="this is RegAction desc"/>
-                <action class="com.github.gaboness.actions.LoginAction" id="com.github.gaboness.actions.LoginAction" text="loginActionText"
-                        description="this is LoginAction desc"/>
-                <separator/>
-                <group id="group2" text="submenu" popup="true">
-                    <action id="com.github.gaboness.actions.OneAction" class="com.github.gaboness.actions.OneAction" text="show action1"></action>
-                    <action id="com.github.gaboness.actions.TwoAction" class="com.github.gaboness.actions.TwoAction" text="show c"></action>
-                </group>
-            </group>
-
-        <group
-                id="org.intellij.sdk.action.GroupedActions2"
-                text="LightCode2"
-                popup="true">
-            <!--EditorPopupMenu 鼠标右键弹出框-->
-            <add-to-group group-id="EditorPopupMenu" anchor="first"
-                          relative-to-action="org.intellij.sdk.action.PopupDialogAction"></add-to-group>
-            <action class="com.github.gaboness.actions.RegAction" id="com.github.gaboness.actions.RegAction" text="regActionText"
-                    description="this is RegAction desc"/>
-            <action class="com.github.gaboness.actions.LoginAction" id="com.github.gaboness.actions.LoginAction" text="loginActionText"
-                    description="this is LoginAction desc"/>
-            <action class="com.github.gaboness.actions.LogOutAction" id="com.github.gaboness.actions.LogOutAction" text="logOutActionText"
-                    description="this is LogOutAction desc"/>
-        </group>
-
-
-        <action class="com.github.gaboness.actions.HelloAction" id="com.github.gaboness.actions.HelloAction" text="HelloActionText"
-                description="this is HelloAction desc">
+        <action id="com.github.gaboness.action.HelloAction" class="com.github.gaboness.action.HelloAction" text="HelloAction"
+                description="this is a action demo...">
+            <!--添加到Tolls菜单栏-->
             <add-to-group group-id="ToolsMenu" anchor="first"></add-to-group>
-                <keyboard-shortcut first-keystroke="TAB" keymap="$default"></keyboard-shortcut>
+            <!--添加到Help菜单栏-->
+            <add-to-group group-id="HelpMenu" anchor="last"></add-to-group>
+            <keyboard-shortcut first-keystroke="control C" keymap="$default"></keyboard-shortcut>
         </action>
 
-        <action class="com.github.gaboness.actions.HelloAction" id="com.github.gaboness.actions.HelloAction2" text="HelloActionText2"
-                description="this is HelloAction desc">
-            <add-to-group group-id="HelpMenu" anchor="first"></add-to-group>
-            <keyboard-shortcut first-keystroke="TAB" keymap="$default"></keyboard-shortcut>
+        <action id="com.github.gaboness.action.BootAction" class="com.github.gaboness.action.BootAction" text="BootAction"
+                description="function1">
+            <!--添加到右键弹出框-->
+            <add-to-group group-id="EditorPopupMenu" anchor="first"></add-to-group>
+            <keyboard-shortcut first-keystroke="control V" keymap="$default"></keyboard-shortcut>
         </action>
+
+        <group id="com.github.gaboness.action.gaboCode" popup="true" text="GaboCode" description="an AI code assistant">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"></add-to-group>
+            <action id="com.github.gaboness.action.AutoContinueCodeAction" class="com.github.gaboness.action.AutoContinueCodeAction" text="续写代码"
+                    description="自动续写代码，结合代码上下文">
+            </action>
+            <action id="com.github.gaboness.action.CodeOptimizationAction" class="com.github.gaboness.action.CodeOptimizationAction" text="代码优化"
+                    description="提供代码，进行代码优化">
+            </action>
+            <action id="com.github.gaboness.action.GenerateCodeAction" class="com.github.gaboness.action.GenerateCodeAction" text="代码生成"
+                    description="根据描述生成代码。。。。">
+            </action>
+
+            <action id="com.github.gaboness.action.BootAction" class="com.github.gaboness.action.BootAction" text="BootAction"
+                    description="function1">
+            </action>
+
+            <group id="com.github.gaboness.action.gaboCodesub" popup="true" text="todo子菜单" description="后续排期功能">
+                <action id="com.github.gaboness.action.HelloAction" class="com.github.gaboness.action.HelloAction" text="后期功能1"
+                        description="this is a action demo...1">
+                </action>
+                <action id="com.github.gaboness.action.HelloAction2" class="com.github.gaboness.action.HelloAction" text="后期功能2"
+                        description="this is a action demo...2">
+                </action>
+                <action id="com.github.gaboness.action.HelloAction3" class="com.github.gaboness.action.HelloAction" text="后期功能3"
+                        description="this is a action demo...3">
+                </action>
+            </group>
+        </group>
 
     </actions>
 
+<!--    <actions>-->
+
+<!--        <action id="com.github.gaboness.action.PopupDialogAction" class="com.github.gaboness.action.PopupDialogAction"-->
+<!--                text="Action Basics Plugin: Pop Dialog Action" description="SDK action example"-->
+<!--                icon="SdkIcons.Sdk_default_icon">-->
+<!--            <add-to-group group-id="ToolsMenu" anchor="first"/>-->
+<!--            <override-text place="MainMenu" text="Pop Dialog Action222"/>-->
+<!--            <keyboard-shortcut first-keystroke="control alt A" second-keystroke="C" keymap="$default"/>-->
+<!--            <mouse-shortcut keystroke="control button3 doubleClick" keymap="$default"/>-->
+<!--        </action>-->
+
+<!--        <group id="com.github.gaboness.action.GroupedActions"-->
+<!--               text="Static Grouped Actions" description="SDK statically grouped action example"-->
+<!--               popup="true" icon="SdkIcons.Sdk_default_icon">-->
+<!--            <add-to-group group-id="ToolsMenu" anchor="after" relative-to-action="com.github.gaboness.action.PopupDialogAction"/>-->
+<!--            <action id="com.github.gaboness.action.GroupPopDialogAction" class="com.github.gaboness.action.PopupDialogAction"-->
+<!--                    text="A Group Action" description="SDK static grouped action example"-->
+<!--                    icon="SdkIcons.Sdk_default_icon">-->
+<!--            </action>-->
+<!--        </group>-->
+
+<!--        <group id="com.github.gaboness.action.CustomDefaultActionGroup"-->
+<!--               class="com.github.gaboness.action.CustomDefaultActionGroup"-->
+<!--               popup="true">-->
+<!--            <add-to-group group-id="EditorPopupMenu" anchor="first"/>-->
+<!--            <action id="com.github.gaboness.action.CustomGroupedAction" class="com.github.gaboness.action.PopupDialogAction"-->
+<!--                    icon="SdkIcons.Sdk_default_icon"/>-->
+<!--        </group>-->
+
+<!--        <group id="com.github.gaboness.action.DynamicActionGroup" class="com.github.gaboness.action.DynamicActionGroup"-->
+<!--               popup="true" text="Dynamically Grouped Actions" description="SDK dynamically grouped action example"-->
+<!--               icon="SdkIcons.Sdk_default_icon">-->
+<!--            <add-to-group group-id="ToolsMenu" anchor="after" relative-to-action="com.github.gaboness.action.GroupedActions"/>-->
+<!--        </group>-->
+<!--    </actions>-->
+
     <applicationListeners>
-        <listener class="com.github.gabohouhou.helloplugin.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
+
     </applicationListeners>
+
 </idea-plugin>
