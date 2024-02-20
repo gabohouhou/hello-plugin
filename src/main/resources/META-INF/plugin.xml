@@ -16,7 +16,13 @@
 
     <!--extensions表示 当前插件需要扩展的功能，包括需要扩展intellij Platfrom人平台的功能等-->
     <extensions defaultExtensionNs="com.intellij">
-<!--        secondary 是否次要：secondary="true"表示次要，不配置 默认主要-->
+
+        <applicationService serviceImplementation="com.github.gaboness.config.GaboCodeSettingState"/>
+
+        <applicationConfigurable
+                instance="com.github.gaboness.config.GaboCodeSettingConfigurable"
+                id="com.github.gaboness.config.GaboCodeSettingConfigurable"
+                displayName="GaboCode"/>
 
     </extensions>
 
@@ -52,12 +58,12 @@
                     description="根据描述生成代码。。。。">
             </action>
 
-            <action id="com.github.gaboness.action.BootAction" class="com.github.gaboness.action.BootAction" text="BootAction"
+            <action id="com.github.gaboness.action.BootAction2" class="com.github.gaboness.action.BootAction" text="BootAction"
                     description="function1">
             </action>
 
             <group id="com.github.gaboness.action.gaboCodesub" popup="true" text="todo子菜单" description="后续排期功能">
-                <action id="com.github.gaboness.action.HelloAction" class="com.github.gaboness.action.HelloAction" text="后期功能1"
+                <action id="com.github.gaboness.action.HelloAction1" class="com.github.gaboness.action.HelloAction" text="后期功能1"
                         description="this is a action demo...1">
                 </action>
                 <action id="com.github.gaboness.action.HelloAction2" class="com.github.gaboness.action.HelloAction" text="后期功能2"
